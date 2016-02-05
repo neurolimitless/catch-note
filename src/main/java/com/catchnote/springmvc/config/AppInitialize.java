@@ -19,5 +19,6 @@ public class AppInitialize implements WebApplicationInitializer {
         );
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/");
+
     }
 }

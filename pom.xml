@@ -151,10 +151,27 @@
                 <warSourceDirectory>src/main/webapp</warSourceDirectory>
                 <warName>CatchNote</warName>
                 <failOnMissingWebXml>false</failOnMissingWebXml>
-                <outputDirectory>C:\apache-tomcat-7.0.67-windows-x64\apache-tomcat-7.0.67\webapps</outputDirectory>
+                <outputDirectory>C:\jetty-9.3.7\webapps</outputDirectory>
+            </configuration>
+        </plugin>
+        <plugin>
+
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.0.5.v20130815</version>
+
+            <configuration>
+                <scanIntervalSeconds>10</scanIntervalSeconds>
+                  <httpConnector>
+                        <port>3000</port>
+                    </httpConnector>
+
             </configuration>
         </plugin>
     </plugins>
+
+
+
 </pluginManagement>
 <finalName>CatchNote</finalName>
 </build>

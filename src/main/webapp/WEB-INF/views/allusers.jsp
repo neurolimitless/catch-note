@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
+    <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -16,44 +16,48 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>UserList</title>
 
-    <style>
-        tr:first-child {
-            font-weight: bold;
-            background-color: #C6C9C4;
-        }
-
-        body {
-            background: url(http://puu.sh/mStDL/2055fea916.png);
-        }
-
-    </style>
 
 </head>
 
 
 <body>
+
 <div class="container">
-    <h2>List of Users</h2>
-    <table class="table">
+    <div class="all-60">
+
+    <h5 class="header-borderless">List of Users</h5>
+        <div class="table-responsive">
+    <table class="table table-striped table-hover table-condensed">
         <tr>
-            <td>NAME</td>
-            <td>Joining Date</td>
-            <td>Salary</td>
+            <td>Name</td>
             <td>Email</td>
-            <td></td>
+            <td>Pass</td>
+
         </tr>
+
         <c:forEach items="${users}" var="user">
             <tr class="active">
                 <td>${user.name}</td>
-                <td>${user.joiningDate}</td>
-                <td>${user.salary}</td>
-                <td><a href="<c:url value='/edit-${user.email}-user' />">${user.email}</a></td>
-                <td><a href="<c:url value='/delete-${user.email}-user' />">delete</a></td>
+                               <td><a href="<c:url value='/edit-${user.email}-user' />">${user.email}</a></td>
+                <td><a href="<c:url value='/edit-${user.pass}-user' />">${user.pass}</a></td>
             </tr>
         </c:forEach>
+
     </table>
-    <br/>
-    <a class="btn btn-primary btn-lg" href="<c:url value='/new' />">Add New User</a>
+            <div class="bodycontainer scrollable">
+        </div>
+        </div>
+      <form class="form-inline">
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-success btn-lg" value="Register">
+    <a class="btn btn-success btn-lg" href="<c:url value='/new' />">Add New User</a>
+        <a class="btn btn-info btn-lg" href="<c:url value='/' />">Menu</a>
+    </div>
+      </form>
+
+
+</div>
 </div>
 </body>
 </html>

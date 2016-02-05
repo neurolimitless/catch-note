@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface UserDao {
     User findById(int id);
+    User findUserByEmail(String email);
+    User findUserByName(String name);
 
     void saveUser(User user);
 
@@ -13,5 +15,8 @@ public interface UserDao {
 
     List<User> findAllUsers();
 
-    User findUserByEmail(String email);
+
+
+
+    boolean isValidUser(String username,String password);
 }

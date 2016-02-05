@@ -16,6 +16,7 @@ public interface UserService {
     List<User> findAllUsers();
 
     User findUserByEmail(String email);
-
-    boolean isUserEmailUnique(Integer id, String email);
+    User findUserByName(String name);
+    boolean isUserUnique(Integer id, String email, String username);
+    boolean isCorrectPassword(String pass,String passFromDb);
 }

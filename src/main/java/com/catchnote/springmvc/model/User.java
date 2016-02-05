@@ -1,47 +1,39 @@
 package com.catchnote.springmvc.model;
 
-import java.math.BigDecimal;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Digits;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.LocalDate;
-import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
-@Table(name="USER")
+@Table(name = "USERS")
 public class User {
+
+    public User(){
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min=3, max=50)
-    @Column(name = "NAME", nullable = false)
+
+    @Size(min = 4, max = 50)
+    @Column(name = "NAME", unique = true, nullable = false)
     private String name;
 
-    @NotNull
-    @DateTimeFormat(pattern="dd/MM/yyyy")
-    @Column(name = "JOINING_DATE", nullable = false)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    private LocalDate joiningDate;
+//    @NotNull
+//    @Column(name = "JOINING_DATE", nullable = false)
+//    private String joiningDate;
 
     @NotNull
-    @Digits(integer=8, fraction=2)
-    @Column(name = "SALARY", nullable = false)
-    private BigDecimal salary;
+    @Size(min = 4, max = 64)
+    @Column(name = "PASS", nullable = false)
+    private String pass;
 
-    @NotEmpty
-    @Column(name = "EMAIL", unique=true, nullable = false)
+    @NotNull
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     public int getId() {
@@ -60,20 +52,20 @@ public class User {
         this.name = name;
     }
 
-    public LocalDate getJoiningDate() {
-        return joiningDate;
+//    public String getJoiningDate() {
+//        return joiningDate;
+//    }
+//
+//    public void setJoiningDate(String joiningDate) {
+//        this.joiningDate = joiningDate;
+//    }
+
+    public String getPass() {
+        return pass;
     }
 
-    public void setJoiningDate(LocalDate joiningDate) {
-        this.joiningDate = joiningDate;
-    }
-
-    public BigDecimal getSalary() {
-        return salary;
-    }
-
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getEmail() {
@@ -114,8 +106,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", joiningDate="
-                + joiningDate + ", salary=" + salary + ", email=" + email + "]";
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", pass='" + pass + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
-
 }
