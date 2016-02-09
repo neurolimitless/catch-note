@@ -1,13 +1,17 @@
 package com.catchnote.springmvc.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "USERS")
+@Scope("session")
 public class User {
 
     public User(){
@@ -19,7 +23,8 @@ public class User {
     private int id;
 
 
-    @Size(min = 4, max = 50)
+    @Size(min = 3, max = 16)
+    @Pattern(message = "please, enter a valid username", regexp = "^[A-Za-z0-9_-]{3,16}$")
     @Column(name = "NAME", unique = true, nullable = false)
     private String name;
 
@@ -28,11 +33,12 @@ public class User {
 //    private String joiningDate;
 
     @NotNull
-    @Size(min = 4, max = 64)
+    @Size(min = 6, max = 64)
     @Column(name = "PASS", nullable = false)
     private String pass;
 
     @NotNull
+    @Email
     @Column(name = "EMAIL", unique = true)
     private String email;
 

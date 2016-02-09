@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
+         pageEncoding="ISO-8859-1" session="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 
 <head>
@@ -42,16 +41,18 @@
                     <form:input class="form-control" path="email" id="email" placeholder="Email"/>
                     <form:errors class="form-control" path="email" cssClass="error"/>
                 </div>
+            <br/>
                         <c:choose>
                             <c:when test="${edit}">
                                 <input class="btn btn-default btn-lg" type="submit" value="Update"/>
                             </c:when>
                             <c:otherwise>
-                                <input type="submit" class="btn btn-success btn-lg" value="Register"/>
+                                <input type="submit" class="btn btn-success " value="Register"/>
                             </c:otherwise>
                         </c:choose>
-                        <a class="btn btn-warning btn-lg" href="<c:url value='/list' />">List of All Users</a>
-                        <a class="btn btn-info btn-lg" href="<c:url value='/' />">Back</a>
+
+                        <a class="btn btn-warning " href="<c:url value='/list' />">List of All Users</a>
+                        <a class="btn btn-info " href="<c:url value='/' />">Back</a>
 
 
 

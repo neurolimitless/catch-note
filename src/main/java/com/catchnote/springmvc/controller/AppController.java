@@ -14,7 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,8 +34,10 @@ public class AppController {
     MessageSource messageSource;
 
 
+
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String getLogin(ModelMap model) {
+    public String getLogin(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getSession(false) != null && request.isRequestedSessionIdValid()) response.sendRedirect("/main");
         User user = new User();
         model.addAttribute("user", user);
         return "login";
@@ -50,16 +58,26 @@ public class AppController {
         return "registration";
     }
 
+    @RequestMapping(value = {"/main"}, method = RequestMethod.GET)
+    public String main(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        if (request.isRequestedSessionIdValid()) return "main";
+        response.sendRedirect("/");
+        return "main";
+    }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.POST)
-
     public String login(@RequestParam(value = "name", required = false) String name,
                         @RequestParam(value = "pass", required = true) String pass,
-                        ModelMap model) {
+                        HttpServletResponse response,
+                        HttpServletRequest request,
+                        ModelMap model) throws IOException {
         User user = userService.findUserByName(name);
         if (null != user && userService.isCorrectPassword(pass, user.getPass())) {
-            model.addAttribute("logged", true);
-            model.addAttribute("user", name);
+            request.getSession().setAttribute("user", name);
+//            response.addCookie(new Cookie("user", name));
+//           model.addAttribute("user", name);
+            request.getSession();
+            response.sendRedirect("/main");
             return "main";
         } else {
             model.put("error", "Invalid username/password");
@@ -70,11 +88,9 @@ public class AppController {
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String saveUser(@Valid User user, BindingResult result,
                            ModelMap model) {
-
         if (result.hasErrors()) {
             return "registration";
         }
-
         if (!userService.isUserUnique(user.getId(), user.getEmail(), user.getName())) {
             FieldError emailError = new FieldError("user", "email", messageSource.getMessage("non.unique.email", new String[]{user.getEmail()}, Locale.getDefault()));
             FieldError nameError = new FieldError("user", "name", messageSource.getMessage("non.unique.name", new String[]{user.getName()}, Locale.getDefault()));
@@ -100,6 +116,15 @@ public class AppController {
         return "registration";
     }
 
+    @RequestMapping(value = {"/main"}, method = RequestMethod.POST)
+    public String logout(HttpServletResponse response,HttpServletRequest request) throws IOException {
+        if (request.getSession(false)!=null){
+            request.getSession().invalidate();
+            response.sendRedirect("/main");
+        }
+        return "main";
+    }
+
     /*
      * This method will be called on form submission, handling POST request for
      * updating user in database. It also validates the user input
@@ -107,11 +132,9 @@ public class AppController {
     @RequestMapping(value = {"/edit-{email}-user"}, method = RequestMethod.POST)
     public String updateUser(@Valid User user, BindingResult result,
                              ModelMap model, @PathVariable String email) {
-
         if (result.hasErrors()) {
             return "registration";
         }
-
         if (!userService.isUserUnique(user.getId(), user.getEmail(), user.getName())) {
             FieldError emailError = new FieldError("user", "email", messageSource.getMessage("non.unique.email", new String[]{user.getEmail()}, Locale.getDefault()));
             result.addError(emailError);

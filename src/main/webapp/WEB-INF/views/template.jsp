@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1" session="false"%>
+pageEncoding="ISO-8859-1" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
@@ -20,12 +20,8 @@ pageEncoding="ISO-8859-1" session="false"%>
 
 
 <body>
-<div class="container all">
-    <form:form class="form" method="post">
-        <br>
-  <input type="submit" class="btn btn-default" value="Logout"/>
-  <a href="<c:url value='/upload'/>" type="button" class="btn btn-success">Upload</a>
-    </form:form>
+<div class="all">
+  
   </div>
 </body>
 </html>

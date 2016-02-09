@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1" session="false"%>
+         pageEncoding="ISO-8859-1" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
@@ -14,18 +14,16 @@ pageEncoding="ISO-8859-1" session="false"%>
           crossorigin="anonymous"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <title>Menu</title>
-
+  <div class="container all">
+      <a href="<c:url value='/main'/>" type="button" class="btn btn-success">Menu</a>
+  </div>
 
 </head>
 
 
 <body>
-<div class="container all">
-    <form:form class="form" method="post">
-        <br>
-  <input type="submit" class="btn btn-default" value="Logout"/>
-  <a href="<c:url value='/upload'/>" type="button" class="btn btn-success">Upload</a>
-    </form:form>
-  </div>
+<div class="all">
+
+</div>
 </body>
 </html>
