@@ -1,5 +1,6 @@
 package com.catchnote.springmvc.controller;
 
+import com.catchnote.springmvc.model.Note;
 import com.catchnote.springmvc.model.User;
 import com.catchnote.springmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +25,7 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/")
 public class AppController {
+
     @Autowired
     UserService userService;
 
@@ -34,12 +33,11 @@ public class AppController {
     MessageSource messageSource;
 
 
-
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String getLogin(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        model.addAttribute("note", new Note());
+        model.addAttribute("user", new User());
         if (request.getSession(false) != null && request.isRequestedSessionIdValid()) response.sendRedirect("/main");
-        User user = new User();
-        model.addAttribute("user", user);
         return "login";
     }
 
@@ -59,9 +57,11 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/main"}, method = RequestMethod.GET)
-    public String main(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public String main(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        model.addAttribute("note", new Note());
         if (request.isRequestedSessionIdValid()) return "main";
         response.sendRedirect("/");
+        System.out.println("THIS? MAIN");
         return "main";
     }
 
@@ -73,7 +73,7 @@ public class AppController {
                         ModelMap model) throws IOException {
         User user = userService.findUserByName(name);
         if (null != user && userService.isCorrectPassword(pass, user.getPass())) {
-            request.getSession().setAttribute("user", name);
+            request.getSession().setAttribute("user", user);
 //            response.addCookie(new Cookie("user", name));
 //           model.addAttribute("user", name);
             request.getSession();
@@ -117,8 +117,8 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/main"}, method = RequestMethod.POST)
-    public String logout(HttpServletResponse response,HttpServletRequest request) throws IOException {
-        if (request.getSession(false)!=null){
+    public String logout(HttpServletResponse response, HttpServletRequest request) throws IOException {
+        if (request.getSession(false) != null) {
             request.getSession().invalidate();
             response.sendRedirect("/main");
         }

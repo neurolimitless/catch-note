@@ -14,18 +14,32 @@ pageEncoding="ISO-8859-1" session="false"%>
           crossorigin="anonymous"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <title>Menu</title>
-
-
 </head>
-
-
 <body>
 <div class="container all">
-    <form:form class="form" method="post">
         <br>
+    <form method="post">
   <input type="submit" class="btn btn-default" value="Logout"/>
-  <a href="<c:url value='/upload'/>" type="button" class="btn btn-success">Upload</a>
-    </form:form>
+  <a href="<c:url value='/upload'/>" type="button" class="btn btn-primary">Upload</a>
+  <a href="<c:url value='/notes'/>" type="button" class="btn btn-primary">My Notes</a>
+    </form>
+    <br/>   <br/>
+        <div class="form-group">
+            <form:form class="form" modelAttribute="note" action="newnote" method="post">
+
+                <form:input class="form-control" type="text" path="name" id="name" placeholder="Name of the new note"/>
+                <form:input class="form-control" type="text" path="data" id="data" placeholder="Note"/>
+                <br/>
+                <input type="submit" class="btn btn-success" value="Create"/>
+                <input type="button" class="btn btn-warning" value="Clear" onclick="document.getElementById('data').value ='';"/>
+                </form:form>
+
+
+            </form>
+
+
+        </div>
+
   </div>
 </body>
 </html>

@@ -14,8 +14,7 @@ body {
     background: #545454;
     border-radius: 10px;
     box-shadow: 0 2px 4px 1px #000;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 10% auto;
 }
 .all-60{
     width: 54%;
@@ -29,12 +28,14 @@ header {
     margin: 5% auto;
     padding: 1%;
     color: #FCFCFC;
+    font-family: Josefin slab, Tahoma;
 }
 .header-borderless{
     font-size: 2em;
     margin: 3% auto;
     padding: 1%;
     color: #FCFCFC;
+    font-family: Josefin slab, Tahoma;
 }
 .ent {
     display: block;

@@ -21,7 +21,6 @@ public class FileUploadController {
 //        for (Cookie cookie : cookies) {
 //            if (cookie.getName().equals("user") && cookie.getValue()!=null) return "upload";
 //        }
-        System.out.println("ץףי ןמזףי");
         response.sendRedirect("/");
         return "login";
     }

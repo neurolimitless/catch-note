@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" session="false" %>
+pageEncoding="ISO-8859-1" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
@@ -13,16 +13,32 @@
           integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
           crossorigin="anonymous"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <title>Upload</title>
+  <title>Menu</title>
 
 
 </head>
 
 
 <body>
-    <div class="container all">
-        <h2>Currently on developing</h2>
-        <a href="<c:url value='/main'/>" type="button" class="btn btn-success">Menu</a>
+<div class="container all">
+    <div class="table-responsive">
+        <br/>
+        <table class="table table-striped table-hover table-condensed">
+            <tr>
+                <td>Name</td>
+                <td>Note</td>
+                <%--<td>Pass</td>--%>
+            </tr>
+            <c:forEach items="${notes}" var="note">
+                <tr class="active">
+                    <td>${note.name}</td>
+                    <td>${note.data}</td>
+                </tr>
+            </c:forEach>
+        </table>
+        <a class="btn btn-info " href="<c:url value='/' />">Back</a>
+        <br/>
     </div>
+  </div>
 </body>
 </html>
