@@ -42,7 +42,6 @@
             </table>
             </div>
             <div class="btn-group">
-                <input type="submit" class="btn btn-success " value="Register">
                 <a class="btn btn-success " href="<c:url value='/new' />">Add New User</a>
                 <a class="btn btn-info " href="<c:url value='/' />">Menu</a>
             </div>
