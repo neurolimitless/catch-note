@@ -6,10 +6,10 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
-
 
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
@@ -35,6 +35,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     }
 
     @SuppressWarnings("unchecked")
+
     public List<User> findAllUsers() {
         getSession().beginTransaction();
         Criteria criteria = createEntityCriteria();

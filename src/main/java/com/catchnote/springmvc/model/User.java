@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
 
     public User() {

@@ -33,13 +33,8 @@ pageEncoding="ISO-8859-1" session="false"%>
                 <input type="submit" class="btn btn-success" value="Create"/>
                 <input type="button" class="btn btn-warning" value="Clear" onclick="document.getElementById('data').value ='';"/>
                 </form:form>
-
-
             </form>
-
-
         </div>
-
   </div>
 </body>
 </html>

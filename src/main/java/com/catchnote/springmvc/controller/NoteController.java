@@ -48,6 +48,7 @@ public class NoteController {
     public String createNote(@RequestParam(value = "name", required = true) String name,
                              @RequestParam(value = "data", required = true) String data,
                                 HttpServletResponse response,
+                             ModelMap model,
                              HttpServletRequest request) throws IOException {
         System.out.println("qq");
         Note note = new Note();
@@ -57,8 +58,9 @@ public class NoteController {
 //        noteService.createAccessKey(note);
         System.out.println(note);
         noteService.addNote(note);
-        response.sendRedirect("/");
-        return "";
+        model.addAttribute("note",new Note());
+        response.sendRedirect("/main");
+        return "/main";
     }
 
 }

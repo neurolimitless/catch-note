@@ -8,5 +8,4 @@ public interface NoteDao {
     public void deleteNote(Note note);
     public void addNote(Note note);
     public void updateNote(Note note);
-
 }

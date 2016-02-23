@@ -75,7 +75,7 @@ public class AppController {
         if (null != user && userService.isCorrectPassword(pass, user.getPass())) {
             request.getSession().setAttribute("user", user);
 //            response.addCookie(new Cookie("user", name));
-//           model.addAttribute("user", name);
+           model.addAttribute("note", new Note());
             request.getSession();
             response.sendRedirect("/main");
             return "main";
