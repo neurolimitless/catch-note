@@ -5,8 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "notes")
 public class Note {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "note_id")
@@ -17,7 +15,6 @@ public class Note {
     private String name;
     @Column(name = "access_key")
     private String accessKey;
-
     @ManyToOne
     @JoinColumn(name = "id")
     private User user;
@@ -69,9 +66,7 @@ public class Note {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Note note = (Note) o;
-
         if (note_id != note.note_id) return false;
         if (data != null ? !data.equals(note.data) : note.data != null) return false;
         if (name != null ? !name.equals(note.name) : note.name != null) return false;

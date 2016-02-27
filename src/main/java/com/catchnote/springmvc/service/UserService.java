@@ -14,4 +14,5 @@ public interface UserService {
     User findUserByName(String name);
     boolean isUserUnique(Integer id, String email, String username);
     boolean isCorrectPassword(String pass,String passFromDb);
+    void refresh(User user);
 }

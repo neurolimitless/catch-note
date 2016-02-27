@@ -1,6 +1,9 @@
 package com.catchnote.springmvc.service;
 
 import com.catchnote.springmvc.model.Note;
+import com.catchnote.springmvc.model.User;
+
+import java.util.List;
 
 public interface NoteService {
     void addNote(Note note);
@@ -8,4 +11,6 @@ public interface NoteService {
     void updateNote(Note note);
     Note getNoteById(int id);
     void createAccessKey(Note note);
+    void removeNoteById(User user,int note_id);
+    List<Note> getUserNotes(User user);
 }

@@ -79,5 +79,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    public void refresh(User user) {
+        dao.refresh(user);
+    }
+
 }
 

@@ -59,6 +59,7 @@ public class AppController {
     @RequestMapping(value = {"/main"}, method = RequestMethod.GET)
     public String main(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         model.addAttribute("note", new Note());
+//        model.addAttribute("user", request.getSession().getAttribute("user"));
         if (request.isRequestedSessionIdValid()) return "main";
         response.sendRedirect("/");
         System.out.println("THIS? MAIN");
@@ -117,7 +118,8 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/main"}, method = RequestMethod.POST)
-    public String logout(HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public String logout(HttpServletResponse response, ModelMap model, HttpServletRequest request) throws IOException {
+        model.addAttribute("note",new Note());
         if (request.getSession(false) != null) {
             request.getSession().invalidate();
             response.sendRedirect("/main");

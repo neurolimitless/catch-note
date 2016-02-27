@@ -59,8 +59,16 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("name", name));
         User user = (User) criteria.uniqueResult();
+
         getSession().getTransaction().commit();
         return user;
+    }
+
+    public void refresh(User user){
+        getSession().beginTransaction();
+        getSession().flush();
+        getSession().refresh(user);
+        getSession().getTransaction().commit();
     }
 
     public boolean isValidUser(String username, String password) {

@@ -8,7 +8,7 @@ body {
 .bodycontainer { max-height: 450px; width: 100%; margin: 0; overflow-y: auto; }
 .table-scrollable { margin: 0; padding: 0; }
 
-.all,.all-60 {
+.all,.all-60,.all-40 {
     text-align: center;
     width: 40%;
     background: #545454;
@@ -17,9 +17,9 @@ body {
     margin: 10% auto;
 }
 .all-60{
-    width: 54%;
-
+    width: 55%;
 }
+
 
 
 header {

@@ -1,14 +1,13 @@
 package com.catchnote.springmvc.model;
 
 import org.hibernate.validator.constraints.Email;
-import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,14 +22,30 @@ public class User {
     @Column(name = "id")
     private int id;
 
-   @OneToMany(mappedBy = "user")
-    private Set<Note> userNotes = new HashSet<Note>(0);
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<Note> userNotes = new ArrayList<Note>();
 
-    public Set<Note> getUserNotes() {
+    public void addNoteToList(Note note) {
+        userNotes.add(note);
+    }
+
+    public void removeNoteFromList(Note note) {
+        userNotes.remove(note);
+    }
+
+    public void removeNoteFromListById(int id) {
+        synchronized (userNotes) {
+            for (Note userNote : userNotes) {
+                if (userNote.getNote_id() == id) userNotes.remove(userNote);
+            }
+        }
+    }
+
+    public List<Note> getUserNotes() {
         return userNotes;
     }
 
-    public void setUserNotes(Set<Note> userNotes) {
+    public void setUserNotes(ArrayList<Note> userNotes) {
         this.userNotes = userNotes;
     }
 

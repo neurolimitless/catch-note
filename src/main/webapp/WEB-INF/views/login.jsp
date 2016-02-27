@@ -1,37 +1,60 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" session="false"%>
+         pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/bootstrap-theme.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Josefin+Slab' rel='stylesheet' type='text/css'>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>CatchNote+</title>
+    <meta charset='utf-8'>
+    <title>CathNote+ login</title>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/loginstyle.css"/>">
 </head>
+
 <body>
-<div class="all">
+
+<div id="carbonForm">
+    <h1>CatchNote+</h1>
+
+        <form:form class="form" method="POST" id="signupForm" modelAttribute="user">
+        <div class="fieldContainer">
+
+            <div class="formRow">
+                <div class="label">
+                    <label for="name">Login:</label>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="name" id="name">
+                </div>
+            </div>
 
 
-    <header>CatchNote+</header>
-    <div class="frm">
-        <form:form class="form" method="POST" modelAttribute="user">
-            <input name="name" class="form-control" type="text" placeholder="Login" >
-            <input name="pass" class="form-control" type="password" placeholder="Password">
-            <br>
-            <input type="submit" value="Login" class="btn btn-success">
-        </form:form>
-    </div>
-    <footer>
-        <a href="#">forgot password</a>|
-        <a href="<c:url value='/new' />">register</a>
-    </footer>
+            <div class="formRow">
+                <div class="label">
+                    <label for="pass">Password:</label>
+                </div>
+
+                <div class="field">
+                    <input type="password" name="pass" id="pass" />
+                </div>
+            </div>
+
+
+        </div> <!-- Closing fieldContainer -->
+
+        <div class="signupButton">
+            <input type="submit" name="submit" id="submit" value="Sign in" >
+        </div>
+    </form:form>
 
 </div>
+<footer>
+    <h2 id="home"><a href="#">Login page</a>  <a href="<c:url value='/new' />">Register</a> <a href="#">Forgot password</a> </h2>
+</footer>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/script.js"/>"></script>
+
+
+
 </body>
 </html>
