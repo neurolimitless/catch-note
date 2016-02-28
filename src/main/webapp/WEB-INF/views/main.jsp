@@ -1,47 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" session="false" %>
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="utf-8" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
+
 <head>
-    <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Menu</title>
+    <meta charset='utf-8'>
+    <title>CathNote+ login</title>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mainstyle.css"/>">
 </head>
 <body>
-<div class="container all-60">
-    <br/>
-    <form method="post">
-        <input type="submit" class="btn btn-default" value="Logout"/>
-        <a href="<c:url value='/upload'/>" type="button" class="btn btn-primary">Upload</a>
-        <a href="<c:url value='/notes'/>" type="button" class="btn btn-primary">My Notes</a>
-        <a href="#">Logged as: <c:out value="${user.name}"/> </a>
-    </form>
-    <br/> <br/>
-
-    <div class="form-group">
-        <form:form class="form" modelAttribute="note" action="newnote" method="post">
-            <div class="col-xs-4">
-            <form:input class="form-control" type="text" path="name" id="name" placeholder="Name of the new note"/>
+<div id="carbonForm">
+    <h1>CatchNote+</h1>
+    <form:form modelAttribute="note" action="newnote" method="post" id="signupForm">
+        <div class="fieldContainer">
+            <div class="formRow two">
+                <form:input path="name" type="text" placeholder="Name of the new note"/>
             </div>
-            <div class="col-xs-12">
-            <form:textarea class="form-control" type="text" path="data" id="data" placeholder="Note"/>
+            <div class="formRow two">
+                <form:textarea path="data" placeholder="Note"/>
             </div>
-            <br/>
-            <input type="submit" class="btn btn-success" value="Create"/>
-            <input type="button" class="btn btn-warning" value="Clear"
-                   onclick="document.getElementById('data').value ='';
-                   document.getElementById('name').value ='';"/>
-        </form:form>
-        </form>
-    </div>
+        </div>
+        <div class="signupButton">
+            <input type="submit" name="submit" class="submit" value="Add">
+            <input type="button" name="submit" class="submit" onclick="document.getElementById('data').value ='';
+                   document.getElementById('name').value ='';" value="Clear"/>
+        </div>
+    </form:form>
 </div>
+<footer class="footer">
+    <h2 id="home"><a href="#">Login page</a> <a href="#">Register</a> <a href="#">Forgot password</a></h2>
+</footer>
+<footer class="footerTwo">
+    <form method="post"/>
+    <h2 id="home">
+        <a href="#" onclick="$(this).closest('form').submit()">Logout</a>
+
+        <a href="<c:url value='/upload'/>">Upload</a> <a href="<c:url value='/notes'/>">My Notes</a></h2>
+</footer>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/script1.js"/>"></script>
+
+
 </body>
+
 </html>
