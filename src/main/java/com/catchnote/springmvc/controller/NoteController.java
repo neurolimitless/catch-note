@@ -35,7 +35,7 @@ public class NoteController {
 //        if (request.getSession(false) != null && request.isRequestedSessionIdValid()) response.sendRedirect("/");
         System.out.println(request.getSession().getAttribute("user"));
         User user = (User) request.getSession().getAttribute("user");
-        if (user!=null) {
+        if (user != null) {
             List<Note> notes = user.getUserNotes();
             model.addAttribute("notes", notes);
             return "notes";
@@ -52,24 +52,41 @@ public class NoteController {
     }
 
     @RequestMapping(value = {"/delete-{note_id}-note"}, method = RequestMethod.GET)
-    public String deleteNote(@PathVariable int note_id,ModelMap model, HttpServletRequest request) throws IOException {
+    public String deleteNote(@PathVariable int note_id, ModelMap model, HttpServletRequest request) throws IOException {
         User sessionUser = (User) request.getSession().getAttribute("user");
-        noteService.removeNoteById(sessionUser,note_id);
+        noteService.removeNoteById(sessionUser, note_id);
         userService.refresh(sessionUser);
         List<Note> list = sessionUser.getUserNotes();
-        model.addAttribute("notes",list);
+        model.addAttribute("notes", list);
 //        request.getSession().setAttribute("user",);
         return "redirect:/notes";
     }
 
-    @RequestMapping(value = "edit-{note_id}-name",method = RequestMethod.GET)
+    @RequestMapping(value = "edit-{note_id}-name", method = RequestMethod.GET)
     public String editName(@PathVariable int note_id, @RequestParam(value = "name") String name,
-                            HttpServletRequest request, HttpServletResponse response) throws IOException{
+                           HttpServletRequest request, HttpServletResponse response) throws IOException {
         Note selectedNote = noteService.getNoteById(note_id);
         User user = (User) request.getSession(false).getAttribute("user");
 
-        if (user.getId()==selectedNote.getUser().getId()) {
+        if (user.getId() == selectedNote.getUser().getId()) {
             selectedNote.setName(name);
+            noteService.updateNote(selectedNote);
+            userService.refresh(user);
+        } else {
+            request.getSession().invalidate();
+            request.getSession().removeAttribute("user");
+            response.sendRedirect("/");
+        }
+        return "redirect:/notes";
+    }
+
+    @RequestMapping(value = "edit-{note_id}-data", method = RequestMethod.GET)
+    public String editData(@PathVariable int note_id, @RequestParam(value = "data") String data,
+                           HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Note selectedNote = noteService.getNoteById(note_id);
+        User user = (User) request.getSession(false).getAttribute("user");
+        if (user.getId() == selectedNote.getUser().getId()) {
+            selectedNote.setData(data);
             noteService.updateNote(selectedNote);
             userService.refresh(user);
         } else {

@@ -52,16 +52,18 @@
             </tr>
             <c:forEach items="${notes}" var="note">
                 <tr class="active">
-                    <div class="noteData">
+
                     <td id="id">
                         <div id="noteId">${note.note_id}</div>
                     </td>
                     <td>
-                        <div id="editName" class="editName" content="${note.note_id}">${note.name}</div>
+                        <div id="editName" class="editName" content="${note.note_id}">><a href="#"> ${note.name}</a>
+                        </div>
                     </td>
-                    </div>
-                        <%--<c:url value='/edit-${note.note_id}-name' />--%>
-                    <td><a href="<c:url value='/edit-${note.note_id}-data' />"><a href="#"> ${note.data}</a></td>
+                    <td>
+                        <div id="editData" class="editData" content="${note.note_id}"><a href="#"> ${note.data}</a>
+                        </div>
+                    </td>
                     <td>
                         <button id="opnDial">
                             <img align="middle" alt="Remove" width="20" height="20"
