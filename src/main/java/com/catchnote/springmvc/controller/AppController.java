@@ -79,6 +79,7 @@ public class AppController {
            model.addAttribute("note", new Note());
             request.getSession();
             response.sendRedirect("/main");
+
             return "main";
         } else {
             model.put("error", "Invalid username/password");

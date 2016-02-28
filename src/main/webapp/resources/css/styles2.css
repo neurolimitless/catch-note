@@ -1,0 +1,98 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+
+@font-face {
+    font-family: aller;
+    src: url(fonts/Aller_Bd.ttf);
+}
+
+.opnDial {
+    background-image: url(/resources/img/trash.png);
+}
+
+.dialog {
+   
+    background: #1E1E1E;
+    margin: auto;
+    width: 40%;
+    border-radius: 7px;
+    min-width: 450px;
+    display: none;
+    color: #c8cbaa;
+}
+.dialog .hdDial {
+    font-family: aller, tahoma;
+    background: #fcf544;
+    padding: 7px;
+    padding-right: 0;
+    font-size: 1.2em;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    text-align: right;
+    color:  #1E1E1E;
+    font-weight: 700;
+}
+
+.contDial {
+    padding: 10px;
+}
+.text{
+    font-size: 1.1em;
+    font-family: aller, tahoma;
+    
+    
+}
+
+.dialog #closeDialog::before {
+    content: "x";
+   
+    
+}
+.dialog #closeDialog {
+    text-decoration: none;
+    position: relative;
+    right: 0;
+    top: 0;
+     text-align: right;
+    font-family: Arial;
+    background: #e0d638;
+    padding: 8px;
+     border-top-right-radius: 7px;
+    
+}
+.dialog #closeDialog:hover {
+    background: #f6ff10;
+    color: #dbdbdb;
+}
+
+
+.inn {
+	
+	border:1px solid #414141;
+	cursor:pointer;
+	height:40px;
+	font-size: 1.2em;
+	text-transform:uppercase;
+	width:110px;
+    font-weight: 700;
+	background: #d0ecfd;
+	
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+
+
+.inn:hover{
+	background-color:#dcf2ff;
+	border:1px solid white;
+}
+.butn {
+    text-align: right;
+    
+    padding-top: 70px;
+}

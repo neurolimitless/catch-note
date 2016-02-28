@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1" session="true" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+pageEncoding="utf-8" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
   <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/styles2.css" />">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
         integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
@@ -20,6 +21,23 @@ pageEncoding="ISO-8859-1" session="true" %>
 
 
 <body>
+<br><br>
+<c:forEach items="${notes}" var="note">
+<div class="dialog">
+    <div class="hdDial"><span>Действительно хотите удалить заметку?</span>
+        <a href="" id="closeDialog"></a>
+    </div>
+    <div class="contDial">
+        <br>
+        <div class="text">Вы действительно хотите <strong>УДАЛИТЬ</strong> заметку?
+        </div>
+        <div class="butn">
+            <button class="inn" id="yes" onclick="location.href='<c:url value='/delete-${note.note_id}-note' />'">OK</button>
+            <button class="inn" id="no">Cancel</button>
+        </div>
+    </div>
+
+</div>
 <div class="container all">
     <div class="table-responsive">
         <br/>
@@ -31,11 +49,14 @@ pageEncoding="ISO-8859-1" session="true" %>
                 <td> </td>
                 <%--<td>Pass</td>--%>
             </tr>
-            <c:forEach items="${notes}" var="note">
+
                 <tr class="active">
                     <td><a href="<c:url value='/edit-${note.note_id}-name' />">${note.name}</a></td>
                     <td><a href="<c:url value='/edit-${note.note_id}-data' />">${note.data}</a></td>
-                    <td><a  href="<c:url value='/delete-${note.note_id}-note' />" onclick="$(this).parent().parent().remove();"><img align="middle" alt="Remove" width="20" height="20" src="<c:url value="/resources/img/trash.png"/>"></a></td>
+                    <td><button id="opnDial" >
+                        <img align="middle" alt="Remove" width="20" height="20" src="<c:url value="/resources/img/trash.png"/>"></button>
+
+                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -45,5 +66,8 @@ pageEncoding="ISO-8859-1" session="true" %>
     </div>
   </div>
 </body>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/script2.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.0.js"/>"></script>
+
 </html>
