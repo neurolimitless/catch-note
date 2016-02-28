@@ -22,7 +22,7 @@ pageEncoding="utf-8" session="true" %>
 
 <body>
 <br><br>
-<c:forEach items="${notes}" var="note">
+
 <div class="dialog">
     <div class="hdDial"><span>Действительно хотите удалить заметку?</span>
         <a href="" id="closeDialog"></a>
@@ -43,14 +43,16 @@ pageEncoding="utf-8" session="true" %>
         <br/>
         <table class="table table-striped table-hover table-bordered">
             <tr>
-                <td>Name</td>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-3">Name</th>
 
-                <td>Note</td>
-                <td> </td>
+                <th class="col-md-12">Note</th>
+                <th class="col-md-1">Actions </th>
                 <%--<td>Pass</td>--%>
             </tr>
-
+            <c:forEach items="${notes}" var="note">
                 <tr class="active">
+                    <td>${note.note_id}</td>
                     <td><a href="<c:url value='/edit-${note.note_id}-name' />">${note.name}</a></td>
                     <td><a href="<c:url value='/edit-${note.note_id}-data' />">${note.data}</a></td>
                     <td><button id="opnDial" >
@@ -61,8 +63,8 @@ pageEncoding="utf-8" session="true" %>
             </c:forEach>
         </table>
 
-        <a class="btn btn-info " href="<c:url value='/' />">Back</a>
-        <br/>
+       <div> <a class="btn btn-info " href="<c:url value='/' />">Back</a> </div>
+       <br>
     </div>
   </div>
 </body>
