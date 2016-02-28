@@ -6,7 +6,7 @@ import com.catchnote.springmvc.model.User;
 import java.util.List;
 
 public interface NoteDao {
-    public Note[] getAllNotesById(int id);
+    Note getNoteById(int id);
     public List<Note> getNotesByUser(User user);
     public void deleteNote(Note note);
     public void addNote(Note note);

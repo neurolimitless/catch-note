@@ -38,12 +38,11 @@ public class NoteServiceImpl implements NoteService {
 
     public void updateNote(Note note) {
         noteDao.updateNote(note);
+
     }
 
     public Note getNoteById(int id) {
-       Note[] notes = noteDao.getAllNotesById(id);
-        if (notes!=null && notes.length>0) return notes[0];
-        else return null;
+      return noteDao.getNoteById(id);
     }
 
     public void createAccessKey(Note note){

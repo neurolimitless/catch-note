@@ -35,9 +35,14 @@ public class NoteController {
 //        if (request.getSession(false) != null && request.isRequestedSessionIdValid()) response.sendRedirect("/");
         System.out.println(request.getSession().getAttribute("user"));
         User user = (User) request.getSession().getAttribute("user");
-        List<Note> notes = user.getUserNotes();
-        model.addAttribute("notes", notes);
-        return "notes";
+        if (user!=null) {
+            List<Note> notes = user.getUserNotes();
+            model.addAttribute("notes", notes);
+            return "notes";
+        } else {
+            response.sendRedirect("/");
+            return "/";
+        }
     }
 
     @RequestMapping(value = "/newnote", method = RequestMethod.GET)
@@ -54,6 +59,24 @@ public class NoteController {
         List<Note> list = sessionUser.getUserNotes();
         model.addAttribute("notes",list);
 //        request.getSession().setAttribute("user",);
+        return "redirect:/notes";
+    }
+
+    @RequestMapping(value = "edit-{note_id}-name",method = RequestMethod.GET)
+    public String editName(@PathVariable int note_id, @RequestParam(value = "name") String name,
+                            HttpServletRequest request, HttpServletResponse response) throws IOException{
+        Note selectedNote = noteService.getNoteById(note_id);
+        User user = (User) request.getSession(false).getAttribute("user");
+
+        if (user.getId()==selectedNote.getUser().getId()) {
+            selectedNote.setName(name);
+            noteService.updateNote(selectedNote);
+            userService.refresh(user);
+        } else {
+            request.getSession().invalidate();
+            request.getSession().removeAttribute("user");
+            response.sendRedirect("/");
+        }
         return "redirect:/notes";
     }
 
