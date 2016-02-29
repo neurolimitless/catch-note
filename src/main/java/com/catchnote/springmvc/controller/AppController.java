@@ -108,9 +108,9 @@ public class AppController {
             result.addError(nameError);
             return "registration";
         }
+        user.setRawPass(user.getPass());
         user.setPass(DigestUtils.md5DigestAsHex(user.getPass().getBytes()));
         userService.saveUser(user);
-
         model.addAttribute("success", "User " + user.getName() + " registered successfully");
         return "success";
     }
@@ -151,9 +151,7 @@ public class AppController {
             result.addError(emailError);
             return "registration";
         }
-
         userService.updateUser(user);
-
         model.addAttribute("success", "User " + user.getName() + " updated successfully");
         return "success";
     }

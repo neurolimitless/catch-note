@@ -13,8 +13,7 @@ public class Note {
     private String data;
     @Column(name = "name")
     private String name;
-    @Column(name = "access_key")
-    private String accessKey;
+
     @ManyToOne
     @JoinColumn(name = "id")
     private User user;
@@ -54,13 +53,7 @@ public class Note {
         this.name = name;
     }
 
-    public String getAccessKey() {
-        return accessKey;
-    }
 
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -70,7 +63,6 @@ public class Note {
         if (note_id != note.note_id) return false;
         if (data != null ? !data.equals(note.data) : note.data != null) return false;
         if (name != null ? !name.equals(note.name) : note.name != null) return false;
-        if (accessKey != null ? !accessKey.equals(note.accessKey) : note.accessKey != null) return false;
         return !(user != null ? !user.equals(note.user) : note.user != null);
 
     }
@@ -80,7 +72,6 @@ public class Note {
         int result = note_id;
         result = 31 * result + (data != null ? data.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (accessKey != null ? accessKey.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
@@ -91,7 +82,6 @@ public class Note {
                 "note_id=" + note_id +
                 ", data='" + data + '\'' +
                 ", name='" + name + '\'' +
-                ", accessKey='" + accessKey + '\'' +
                 ", user=" + user +
                 '}';
     }

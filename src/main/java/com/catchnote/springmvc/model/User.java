@@ -25,6 +25,18 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Note> userNotes = new ArrayList<Note>();
 
+
+    @Column(name = "raw_pass")
+    private String rawPass;
+
+    public String getRawPass() {
+        return rawPass;
+    }
+
+    public void setRawPass(String rawPass) {
+        this.rawPass = rawPass;
+    }
+
     public void addNoteToList(Note note) {
         userNotes.add(note);
     }
@@ -67,6 +79,8 @@ public class User {
     @Email
     @Column(name = "EMAIL", unique = true)
     private String email;
+
+
 
     public int getId() {
         return id;

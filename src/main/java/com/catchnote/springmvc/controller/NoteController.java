@@ -56,7 +56,7 @@ public class NoteController {
                              HttpServletResponse response) throws IOException {
         User sessionUser = (User) request.getSession().getAttribute("user");
         Note note = noteService.getNoteById(note_id);
-        if (sessionUser.getId() == note.getUser().getId()) {
+        if (note!=null && sessionUser.getId() == note.getUser().getId()) {
             noteService.removeNoteById(sessionUser, note_id);
             userService.refresh(sessionUser);
             List<Note> list = sessionUser.getUserNotes();
@@ -76,7 +76,7 @@ public class NoteController {
         Note selectedNote = noteService.getNoteById(note_id);
         User user = (User) request.getSession(false).getAttribute("user");
 
-        if (user.getId() == selectedNote.getUser().getId()) {
+        if (selectedNote!=null && user.getId() == selectedNote.getUser().getId()) {
             selectedNote.setName(name);
             noteService.updateNote(selectedNote);
             userService.refresh(user);
@@ -93,7 +93,7 @@ public class NoteController {
                            HttpServletRequest request, HttpServletResponse response) throws IOException {
         Note selectedNote = noteService.getNoteById(note_id);
         User user = (User) request.getSession(false).getAttribute("user");
-        if (user.getId() == selectedNote.getUser().getId()) {
+        if (selectedNote!=null && user.getId() == selectedNote.getUser().getId()) {
             selectedNote.setData(data);
             noteService.updateNote(selectedNote);
             userService.refresh(user);
@@ -118,9 +118,6 @@ public class NoteController {
         User sessionUser = (User) request.getSession().getAttribute("user");
         note.setUser(sessionUser);
         sessionUser.addNoteToList(note);
-//        noteService.createAccessKey(note);
-        System.out.println(note);
-
         noteService.addNote(note);
         model.addAttribute("note", new Note());
         response.sendRedirect("/main");

@@ -10,7 +10,6 @@ public interface NoteService {
     void removeNote(Note note);
     void updateNote(Note note);
     Note getNoteById(int id);
-    void createAccessKey(Note note);
     void removeNoteById(User user,int note_id);
     List<Note> getUserNotes(User user);
 }
