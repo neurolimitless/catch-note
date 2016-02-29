@@ -13,4 +13,6 @@ public interface UserDao {
     List<User> findAllUsers();
     boolean isValidUser(String username,String password);
     void refresh(User user);
+    User getUserByToken(int token);
+    void updateUser(User user);
 }

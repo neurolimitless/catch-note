@@ -19,16 +19,30 @@
 
 <div class="container">
     <div class="all">
-    <h4> <header>Message: </header> </h4>
+    <h4> <header>${data}</header> </h4>
         <br/>
-      <h3>  <span class="label label-success">${success}</span></h3>
 
-<br/>
-<br/>
-    <h4><label class="label label-default">Go back to</label></h4>
-        <a class="btn btn-primary btn-lg" href="<c:url value='/list' />">List of All Users</a>
-        <a class="btn btn-info btn-lg" href="<c:url value='/' />">Menu</a>
-    <br/>
+        <c:choose>
+            <c:when test="${accountInfo}">
+                <h3><span class="label label-success">${name}</span></h3>
+                <h3><span class="label label-success">${email}</span></h3>
+                <h3><span class="label label-success">${level}</span></h3>
+                <br/>
+                <br/>
+                <h2>Go back to</h2>
+                <a class="btn btn-info btn-lg" href="<c:url value='/' />">Menu</a>
+                <br/>
+            </c:when>
+            <c:otherwise>
+                <h3><span class="label label-success">${success}</span></h3>
+                <br/>
+                <br/>
+                <h2>Go back to</h2>
+                <a class="btn btn-info btn-lg" href="<c:url value='/' />">Menu</a>
+                <br/>
+            </c:otherwise>
+        </c:choose>
+
     </div>
     </div>
 </body>

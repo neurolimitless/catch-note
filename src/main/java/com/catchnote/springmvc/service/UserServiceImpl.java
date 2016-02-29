@@ -34,12 +34,7 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional
     public void updateUser(User user) {
-        User entity = dao.findById(user.getId());
-        if (entity != null) {
-            entity.setName(user.getName());
-            entity.setPass(user.getPass());
-            entity.setEmail(user.getEmail());
-        }
+        dao.updateUser(user);
     }
 
     @Transactional
@@ -81,9 +76,22 @@ public class UserServiceImpl implements UserService {
         dao.refresh(user);
     }
 
-
-
+    public User getUserByToken(int token) {
+       return dao.getUserByToken(token);
     }
+
+    public String getUserRole(int validLevel) {
+        switch (validLevel){
+            case 0:return "Free user";
+            case 1:return "Basic user";
+            case 2:return "Premium user";
+            case 3:return "Admin";
+            default: return "Invalid role";
+        }
+    }
+
+
+}
 
 
 

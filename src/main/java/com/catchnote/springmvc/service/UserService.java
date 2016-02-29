@@ -15,4 +15,6 @@ public interface UserService {
     boolean isUserUnique(Integer id, String email, String username);
     boolean isCorrectPassword(String pass,String passFromDb);
     void refresh(User user);
+    User getUserByToken(int token);
+    String getUserRole(int validLevel);
 }

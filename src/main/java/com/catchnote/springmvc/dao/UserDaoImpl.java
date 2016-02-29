@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
@@ -19,12 +18,16 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         User user = getByKey(id);
         getSession().getTransaction().commit();
         return user;
-
     }
 
     public void saveUser(User user) {
         getSession().beginTransaction();
         persist(user);
+        getSession().getTransaction().commit();
+    }
+    public void updateUser(User user) {
+        getSession().beginTransaction();
+        getSession().merge(user);
         getSession().getTransaction().commit();
     }
 
@@ -59,7 +62,6 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("name", name));
         User user = (User) criteria.uniqueResult();
-
         getSession().getTransaction().commit();
         return user;
     }
@@ -69,6 +71,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         getSession().flush();
         getSession().refresh(user);
         getSession().getTransaction().commit();
+    }
+
+    public User getUserByToken(int token) {
+        getSession().getTransaction().begin();
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("token", token));
+        User user = (User) criteria.uniqueResult();
+        getSession().getTransaction().commit();
+        return user;
     }
 
     public boolean isValidUser(String username, String password) {

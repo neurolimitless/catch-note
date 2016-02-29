@@ -30,16 +30,13 @@ public class NoteServiceImpl implements NoteService {
 
     public void updateNote(Note note) {
         noteDao.updateNote(note);
-
     }
 
     public Note getNoteById(int id) {
-      return noteDao.getNoteById(id);
+        return noteDao.getNoteById(id);
     }
 
-
-
-    public void removeNoteById(User user,int note_id) {
+    public void removeNoteById(User user, int note_id) {
         noteDao.deleteNoteById(note_id);
     }
 

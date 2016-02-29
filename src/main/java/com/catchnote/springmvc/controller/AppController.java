@@ -2,6 +2,7 @@ package com.catchnote.springmvc.controller;
 
 import com.catchnote.springmvc.model.Note;
 import com.catchnote.springmvc.model.User;
+import com.catchnote.springmvc.service.EmailService;
 import com.catchnote.springmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -32,6 +33,8 @@ public class AppController {
     @Autowired
     MessageSource messageSource;
 
+    @Autowired
+    EmailService emailService;
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String getLogin(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -62,9 +65,9 @@ public class AppController {
 //        model.addAttribute("user", request.getSession().getAttribute("user"));
         if (request.getSession(false)!=null && request.getSession().getAttribute("user")!=null) return "main";
         else {
-            response.sendRedirect("/");
+            response.sendRedirect("/login.jsp");
             System.out.println("THIS? MAIN");
-            return "/";
+            return "login";
         }
 
     }
@@ -95,6 +98,42 @@ public class AppController {
         }
     }
 
+    @RequestMapping(value = {"/account"},method = RequestMethod.GET)
+    public String account(HttpServletResponse response,HttpServletRequest request, ModelMap model) throws IOException {
+        if (request.getSession(false)!=null && request.getSession().getAttribute("user")!=null){
+            User user = (User) request.getSession().getAttribute("user");
+            model.addAttribute("data","Account: ");
+            model.addAttribute("name","Username: "+user.getName());
+            model.addAttribute("email","Email: "+user.getEmail());
+            model.addAttribute("level","Account status: "+userService.getUserRole(user.getValid()));
+            model.addAttribute("accountInfo",true);
+            model.addAttribute("note", new Note());
+            return "success";
+        } else {
+            model.addAttribute("note", new Note());
+            response.sendRedirect("/main");
+            return "main";
+        }
+
+    }
+
+    @RequestMapping(value = {"/validation"},method = RequestMethod.GET)
+    public String validate(@RequestParam(value = "token")int token, ModelMap model){
+       User user = userService.getUserByToken(token);
+        if (user!=null && user.getValid()==0){
+            user.setValid(1);
+            userService.updateUser(user);
+            userService.refresh(user);
+            model.addAttribute("success", "Email " + user.getEmail() + " validated.");
+            model.addAttribute("data", "Message:");
+            return "success";
+        } else {
+            model.addAttribute("success", "Wrong security token.");
+            model.addAttribute("data", "Error:");
+            return "success";
+        }
+    }
+
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String saveUser(@Valid User user, BindingResult result,
                            ModelMap model) {
@@ -110,7 +149,9 @@ public class AppController {
         }
         user.setRawPass(user.getPass());
         user.setPass(DigestUtils.md5DigestAsHex(user.getPass().getBytes()));
+        user.setToken(user.hashCode());
         userService.saveUser(user);
+        emailService.sendValidationEmail(user);
         model.addAttribute("success", "User " + user.getName() + " registered successfully");
         return "success";
     }

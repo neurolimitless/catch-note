@@ -36,8 +36,7 @@
     <form method="post"/>
     <h2 id="home">
         <a href="#" onclick="$(this).closest('form').submit()">Logout</a>
-
-        <a href="<c:url value='/upload'/>">Upload</a> <a href="<c:url value='/notes'/>">My Notes</a></h2>
+        <a href="<c:url value='/account'/>">Account</a> <a href="<c:url value='/notes'/>">My Notes</a></h2>
 </footer>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/script1.js"/>"></script>

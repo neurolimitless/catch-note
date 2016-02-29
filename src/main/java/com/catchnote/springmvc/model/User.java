@@ -25,6 +25,16 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Note> userNotes = new ArrayList<Note>();
 
+    @Column(name = "token")
+    private int token;
+
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
+    }
 
     @Column(name = "raw_pass")
     private String rawPass;
@@ -66,9 +76,16 @@ public class User {
     @Column(name = "NAME", unique = true, nullable = false)
     private String name;
 
-//    @NotNull
-//    @Column(name = "JOINING_DATE", nullable = false)
-//    private String joiningDate;
+    @Column(name = "valid")
+    private int valid;
+
+    public int getValid() {
+        return valid;
+    }
+
+    public void setValid(int valid) {
+        this.valid = valid;
+    }
 
     @NotNull
     @Size(min = 6, max = 64)
@@ -79,7 +96,6 @@ public class User {
     @Email
     @Column(name = "EMAIL", unique = true)
     private String email;
-
 
 
     public int getId() {
@@ -122,32 +138,30 @@ public class User {
         this.email = email;
     }
 
+
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+        if (rawPass != null ? !rawPass.equals(user.rawPass) : user.rawPass != null) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        if (pass != null ? !pass.equals(user.pass) : user.pass != null) return false;
+        return email != null ? email.equals(user.email) : user.email == null;
+
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof User))
-            return false;
-        User other = (User) obj;
-        if (id != other.id)
-            return false;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        return true;
+    public int hashCode() {
+        int result = id;
+        result = 30 * result + (rawPass != null ? rawPass.hashCode() : 0);
+        result = 29 * result + (name != null ? name.hashCode() : 0);
+        result = 28 * result + (pass != null ? pass.hashCode() : 0);
+        result = 27 * result + (email != null ? email.hashCode() : 0);
+        return result;
     }
 
     @Override

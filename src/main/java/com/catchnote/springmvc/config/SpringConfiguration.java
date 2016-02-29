@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "com.catchnote.springmvc")
 public class SpringConfiguration extends WebMvcConfigurerAdapter {
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -38,6 +39,7 @@ public class SpringConfiguration extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
 
     @Bean
     public MessageSource messageSource() {
