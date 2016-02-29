@@ -52,12 +52,20 @@ public class NoteController {
     }
 
     @RequestMapping(value = {"/delete-{note_id}-note"}, method = RequestMethod.GET)
-    public String deleteNote(@PathVariable int note_id, ModelMap model, HttpServletRequest request) throws IOException {
+    public String deleteNote(@PathVariable int note_id, ModelMap model, HttpServletRequest request,
+                             HttpServletResponse response) throws IOException {
         User sessionUser = (User) request.getSession().getAttribute("user");
-        noteService.removeNoteById(sessionUser, note_id);
-        userService.refresh(sessionUser);
-        List<Note> list = sessionUser.getUserNotes();
-        model.addAttribute("notes", list);
+        Note note = noteService.getNoteById(note_id);
+        if (sessionUser.getId() == note.getUser().getId()) {
+            noteService.removeNoteById(sessionUser, note_id);
+            userService.refresh(sessionUser);
+            List<Note> list = sessionUser.getUserNotes();
+            model.addAttribute("notes", list);
+        } else {
+            request.getSession().invalidate();
+            request.getSession().removeAttribute("user");
+            response.sendRedirect("/");
+        }
 //        request.getSession().setAttribute("user",);
         return "redirect:/notes";
     }

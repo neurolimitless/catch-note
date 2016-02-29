@@ -60,7 +60,7 @@ public class AppController {
     public String main(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         model.addAttribute("note", new Note());
 //        model.addAttribute("user", request.getSession().getAttribute("user"));
-        if (request.getSession(false).getAttribute("user")!=null) return "main";
+        if (request.getSession(false)!=null && request.getSession().getAttribute("user")!=null) return "main";
         else {
             response.sendRedirect("/");
             System.out.println("THIS? MAIN");
@@ -68,6 +68,12 @@ public class AppController {
         }
 
     }
+
+    /**
+     * Mapping '/'
+     * Default page (index.html)
+     *
+     */
 
     @RequestMapping(value = {"/"}, method = RequestMethod.POST)
     public String login(@RequestParam(value = "name", required = false) String name,
@@ -79,10 +85,9 @@ public class AppController {
         if (null != user && userService.isCorrectPassword(pass, user.getPass())) {
             request.getSession().setAttribute("user", user);
 //            response.addCookie(new Cookie("user", name));
-           model.addAttribute("note", new Note());
+            model.addAttribute("note", new Note());
             request.getSession();
             response.sendRedirect("/main");
-
             return "main";
         } else {
             model.put("error", "Invalid username/password");

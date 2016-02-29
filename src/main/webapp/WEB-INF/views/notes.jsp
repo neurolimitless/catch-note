@@ -5,14 +5,9 @@
 <head>
     <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/styles2.css" />">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap-theme.min.css" />">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Menu</title>
 
 
@@ -20,8 +15,6 @@
 
 
 <body>
-<br><br>
-
 <div class="dialog">
     <div class="hdDial"><span>Действительно хотите удалить заметку?</span>
         <a href="" id="closeDialog"></a>
@@ -31,20 +24,17 @@
         <div class="text">Вы действительно хотите <strong>УДАЛИТЬ</strong> заметку?
         </div>
         <div class="butn">
-            <button class="inn" id="yes" onclick="location.href='<c:url value='/delete-${note.note_id}-note'/>'">OK
-            </button>
-            <button class="inn" id="no">Cancel</button>
+
         </div>
     </div>
-
 </div>
 <div class="container all">
+    <br>
     <div class="table-responsive">
-        <br/>
         <table class="table table-striped table-hover table-bordered">
             <tr>
                 <th class="col-md-1">ID</th>
-                <th class="col-md-3">Name</th>
+                <th class="col-md-2">Name</th>
 
                 <th class="col-md-12">Note</th>
                 <th class="col-md-1">Actions</th>
@@ -57,7 +47,7 @@
                         <div id="noteId">${note.note_id}</div>
                     </td>
                     <td>
-                        <div id="editName" class="editName" content="${note.note_id}">><a href="#"> ${note.name}</a>
+                        <div id="editName" class="editName" content="${note.note_id}"><a href="#"> ${note.name}</a>
                         </div>
                     </td>
                     <td>
@@ -65,9 +55,11 @@
                         </div>
                     </td>
                     <td>
-                        <button id="opnDial">
-                            <img align="middle" alt="Remove" width="20" height="20"
-                                 src="<c:url value="/resources/img/trash.png"/>"></button>
+                        <div id="deleteNote" class="deleteNote" content="${note.note_id}">
+                            <button id="opnDial" >
+                                <img align="middle" alt="Remove" width="20" height="20"
+                                     src="<c:url value="/resources/img/trash.png"/>"></button>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>
@@ -78,8 +70,8 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/script2.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.0.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/script2.js"/>"></script>
 
 </html>
