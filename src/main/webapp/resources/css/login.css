@@ -1,7 +1,7 @@
 body {
     background: url(/resources/img/dark_embroidery.png);
     font-family: Josefin slab, Tahoma;
-    min-width: 768px;
+    min-width: 800px;
     
     
 }
@@ -52,8 +52,8 @@ footer {
 }
 .btn-des {
     font-size: 2em;
-    width: 81%;
-    margin: 3%;
+    width: 85%;
+    margin: 2%;
     border-radius: 10px;
     background:#20FB70;
     cursor: pointer;
