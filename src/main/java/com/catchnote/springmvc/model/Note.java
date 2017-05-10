@@ -1,88 +1,90 @@
 package com.catchnote.springmvc.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "notes")
+@Table(name = "NOTES")
 public class Note {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "note_id")
-    private int note_id;
-    @Column(name = "data")
-    private String data;
-    @Column(name = "name")
-    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private User user;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id")
+  private int id;
 
-    public User getUser() {
-        return user;
-    }
+  @Column(name = "name")
+  private String name;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  @Column(name = "data")
+  private String data;
 
-    public Note() {
-    }
+  @Column(name = "adding_date")
+  private Date date;
 
-    public int getNote_id() {
-        return note_id;
-    }
+  public Note() {
+  }
 
-    public void setNote_id(int note_id) {
-        this.note_id = note_id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getData() {
-        return data;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setData(String data) {
-        this.data = data;
-    }
+  public String getData() {
+    return data;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setData(String data) {
+    this.data = data;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
+  public void setName(String name) {
+    this.name = name;
+  }
 
+  public Date getDate() {
+    return date;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Note note = (Note) o;
-        if (note_id != note.note_id) return false;
-        if (data != null ? !data.equals(note.data) : note.data != null) return false;
-        if (name != null ? !name.equals(note.name) : note.name != null) return false;
-        return !(user != null ? !user.equals(note.user) : note.user != null);
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-    @Override
-    public int hashCode() {
-        int result = note_id;
-        result = 31 * result + (data != null ? data.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        return result;
-    }
+    Note note = (Note) o;
 
-    @Override
-    public String toString() {
-        return "Note{" +
-                "note_id=" + note_id +
-                ", data='" + data + '\'' +
-                ", name='" + name + '\'' +
-                ", user=" + user +
-                '}';
-    }
+    if (id != note.id) return false;
+    if (name != null ? !name.equals(note.name) : note.name != null) return false;
+    if (data != null ? !data.equals(note.data) : note.data != null) return false;
+    return date != null ? date.equals(note.date) : note.date == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (data != null ? data.hashCode() : 0);
+    result = 31 * result + (date != null ? date.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "Note{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", data='" + data + '\'' +
+        ", date=" + date +
+        '}';
+  }
 }
