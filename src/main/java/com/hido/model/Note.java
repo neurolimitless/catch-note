@@ -1,23 +1,36 @@
 package com.hido.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "NOTES")
-public class Note {
+public class Note implements Serializable {
 
   @Id
   @GeneratedValue
   private int id;
-  @JoinColumn(name = "name")
+  @Column(name = "name")
   private String name;
-  @JoinColumn(name = "data")
+  @Column(name = "data")
   private String data;
-  @JoinColumn(name = "adding_date")
+  @Column(name = "adding_date")
   private Date addingDate;
 
+  @ManyToOne
+  @JoinColumn(name = "author")
+  private User author;
+
   public Note() {
+  }
+
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
   }
 
   public int getId() {

@@ -32,7 +32,7 @@ public class JPAConfiguration {
     HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
     em.setDataSource(dataSource(env));
     adapter.setDatabase(Database.H2);
-    adapter.setGenerateDdl(true);
+//    adapter.setGenerateDdl(true);
     adapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");
     em.setJpaVendorAdapter(adapter);
     em.setPackagesToScan("com.hido");

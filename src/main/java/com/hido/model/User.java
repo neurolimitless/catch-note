@@ -1,11 +1,15 @@
 package com.hido.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
 
   private Long id;
   private String name;
@@ -14,6 +18,17 @@ public class User {
   private boolean confirmedEmail;
   private Date joinDate;
   private String token;
+  @JsonIgnore
+  private List<Note> noteList;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "author", cascade = CascadeType.ALL)
+  public List<Note> getNoteList() {
+    return noteList;
+  }
+
+  public void setNoteList(List<Note> noteList) {
+    this.noteList = noteList;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
