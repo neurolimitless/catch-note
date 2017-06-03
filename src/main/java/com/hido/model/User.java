@@ -8,7 +8,7 @@ import java.sql.Date;
 public class User {
 
   private Long id;
-  private String username;
+  private String name;
   private String password;
   private String email;
   private boolean confirmedEmail;
@@ -22,9 +22,17 @@ public class User {
     return id;
   }
 
-  @Column(name = "username", nullable = false)
-  public String getUsername() {
-    return username;
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  @Column(name = "name", nullable = false)
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Column(name = "password", nullable = false)
@@ -32,9 +40,17 @@ public class User {
     return password;
   }
 
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   @Column(name = "email", nullable = false)
   public String getEmail() {
     return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   @Column(name = "confirmed_email", nullable = false)
@@ -42,38 +58,22 @@ public class User {
     return confirmedEmail;
   }
 
+  public void setConfirmedEmail(boolean confirmedEmail) {
+    this.confirmedEmail = confirmedEmail;
+  }
+
   @Column(name = "join_date", nullable = false)
   public Date getJoinDate() {
     return joinDate;
   }
 
+  public void setJoinDate(Date joinDate) {
+    this.joinDate = joinDate;
+  }
+
   @Column(name = "token", nullable = false)
   public String getToken() {
     return token;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public void setConfirmedEmail(boolean confirmedEmail) {
-    this.confirmedEmail = confirmedEmail;
-  }
-
-  public void setJoinDate(Date joinDate) {
-    this.joinDate = joinDate;
   }
 
   public void setToken(String token) {
@@ -89,17 +89,19 @@ public class User {
 
     if (confirmedEmail != user.confirmedEmail) return false;
     if (id != null ? !id.equals(user.id) : user.id != null) return false;
-    if (username != null ? !username.equals(user.username) : user.username != null) return false;
+    if (name != null ? !name.equals(user.name) : user.name != null) return false;
     if (password != null ? !password.equals(user.password) : user.password != null) return false;
     if (email != null ? !email.equals(user.email) : user.email != null) return false;
     if (joinDate != null ? !joinDate.equals(user.joinDate) : user.joinDate != null) return false;
-    return token != null ? token.equals(user.token) : user.token == null;
+    if (token != null ? !token.equals(user.token) : user.token != null) return false;
+
+    return true;
   }
 
   @Override
   public int hashCode() {
     int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (username != null ? username.hashCode() : 0);
+    result = 31 * result + (name != null ? name.hashCode() : 0);
     result = 31 * result + (password != null ? password.hashCode() : 0);
     result = 31 * result + (email != null ? email.hashCode() : 0);
     result = 31 * result + (confirmedEmail ? 1 : 0);
