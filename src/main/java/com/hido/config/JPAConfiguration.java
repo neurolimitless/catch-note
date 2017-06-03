@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 
-
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories("com.hido.dao")
