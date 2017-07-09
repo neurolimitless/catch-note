@@ -29,14 +29,17 @@ export class LoginComponent implements OnInit {
   login() {
     this.loading = true;
     this.authService.login(this.username, this.password)
-      .subscribe(result => {
-        if (result === true) {
-          this.router.navigate(['home']);
-        } else {
-          this.error = 'Username or password is incorrect';
-          this.loading = false;
-        }
-      })
+      .subscribe(() => {
+        this.router.navigate(['/home']);
+      }, this.handleError);
+  }
+
+  handleError(error) {
+    console.log(error.status);
+  }
+
+  logout(): void {
+    localStorage.removeItem('jwt');
   }
 
 }

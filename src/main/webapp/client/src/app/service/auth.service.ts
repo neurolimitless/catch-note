@@ -10,34 +10,37 @@ import {Router} from "@angular/router";
 @Injectable()
 export class AuthService {
 
-  private authUrl = '/login';
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private authUrl = 'http://localhost:8080/login';
+  private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
 
   constructor(private http: Http, private router: Router) {
   }
 
-  login(username: string, password: string): Observable<boolean> {
-    return this.http.post(this.authUrl, JSON.stringify({name: username, password: password}),
-      {headers: this.headers}).map((response: Response) => {
-      let token = response.json() && response.json().token;
-      if (token) {
-        localStorage.setItem('user', JSON.stringify({username: username, token: token}));
-        return true;
-      } else {
-        return false;
-      }
-    }).catch((error: any) => Observable.throw(error || 'Server error'));
+  login(username: string, password: string): Observable<Response> {
+    let loginRequest = JSON.stringify({name: username, password: password});
+    return this.http.post(this.authUrl, loginRequest, {headers: this.headers})
+      .do(resp => {
+        localStorage.setItem('jwt', resp.headers.get('x-auth-token'));
+      });
   }
 
-  logout() {
-    localStorage.removeItem("user");
-    this.router.navigate(['login']);
+  private handleError(error: Response) {
+    console.error(error);
+    return Observable.throw(error.json().error || 'Server error');
+  }
+
+  logout(): void {
+    localStorage.removeItem('jwt');
   }
 
   checkCredentials() {
-    if (localStorage.getItem("user") === null) {
+    if (localStorage.getItem("jwt") === null) {
       this.router.navigate(['login']);
     }
+  }
+
+  isSignedIn(): boolean {
+    return localStorage.getItem('jwt') !== null;
   }
 
 }

@@ -10,6 +10,7 @@ import {RouterModule} from "@angular/router";
 import {RoutingModule} from "./components/routing/routing.module";
 import {AuthService} from "./service/auth.service";
 import {HomeComponent} from "./components/home/home.component";
+import {AuthGuard} from "./service/auth-guard";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import {HomeComponent} from "./components/home/home.component";
     RouterModule.forRoot([]),
     RoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -9,13 +9,13 @@ CREATE TABLE `notes` (
 INSERT INTO NOTES VALUES (DEFAULT ,'Sample note','This is the simple note',NOW());
 DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) DEFAULT NULL,
-  `password` varchar(256) NOT NULL,
-  `email` varchar(128) NOT NULL,
+  `id`              int(11) NOT NULL AUTO_INCREMENT,
+  `name`            varchar(32) DEFAULT NULL,
+  `password`        varchar(256) NOT NULL,
+  `email`           varchar(128) NOT NULL,
   `confirmed_email` BOOL NOT NULL DEFAULT false,
-  `join_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `token` varchar(32) DEFAULT NULL,
+  `join_date`       timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `role`            INT(11),
   PRIMARY KEY (`id`)
 );
 INSERT INTO USERS VALUES (DEFAULT,'admin','root','samplemail@yahoo.com','false',now(),null);
@@ -38,14 +38,15 @@ CREATE TABLE ROLES (
   `name` VARCHAR(32) NOT NULL
 );
 
-INSERT INTO ROLES (name) VALUES ('ROLE_ADMIN');
-INSERT INTO ROLES (name) VALUES ('ROLE_USER');
+INSERT INTO ROLES (name) VALUES ('ADMIN');
+INSERT INTO ROLES (name) VALUES ('USER');
 
-CREATE TABLE USER_ROLES (
-  `user_id` INT(11) NOT NULL,
-  `role_id` INT(11) NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES USERS (id),
-  FOREIGN KEY (role_id) REFERENCES ROLES (id)
-);
+ALTER TABLE PUBLIC.USERS
+  ADD CONSTRAINT USERS_ROLES_ID_fk
+FOREIGN KEY (ID) REFERENCES INFORMATION_SCHEMA.ROLES (ID);
 
-INSERT INTO USER_ROLES VALUES (1, 1);
+ALTER TABLE PUBLIC.USERS
+  ADD CONSTRAINT USERS_ROLES_ID_fk
+FOREIGN KEY (ROLE) REFERENCES PUBLIC.ROLES (ID)
+  ON DELETE SET NULL
+  ON UPDATE SET NULL;

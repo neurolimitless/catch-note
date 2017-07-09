@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {User} from "../../models/user.model";
+import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +16,7 @@ export class RegistrationComponent implements OnInit {
     this.isVisible = !this.isVisible;
   }
 
-  constructor() {
+  constructor(private http: Http) {
   }
 
   ngOnInit() {

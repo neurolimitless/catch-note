@@ -20,7 +20,7 @@ import javax.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("com.hido.dao")
+@EnableJpaRepositories("com.hido.repo")
 public class JPAConfiguration {
 
   @Autowired

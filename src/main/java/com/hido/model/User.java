@@ -3,16 +3,22 @@ package com.hido.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.base.Objects;
 import com.hido.serializers.CustomDateSerializer;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
   private Long id;
   private String name;
@@ -20,9 +26,11 @@ public class User implements Serializable {
   private String email;
   private boolean confirmedEmail;
   private Date joinDate;
-  private String token;
   @JsonIgnore
   private List<Note> noteList;
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "role")
+  private Roles role;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "author", cascade = CascadeType.ALL)
   public List<Note> getNoteList() {
@@ -62,6 +70,12 @@ public class User implements Serializable {
     this.password = password;
   }
 
+  @Override
+  @Transient
+  public String getUsername() {
+    return name;
+  }
+
   @Column(name = "email", nullable = false)
   public String getEmail() {
     return email;
@@ -91,47 +105,80 @@ public class User implements Serializable {
     this.joinDate = joinDate;
   }
 
-  @Column(name = "token", nullable = false)
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-  }
-
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  @JsonIgnore
+  @Transient
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    Collection<GrantedAuthority> authorities = new ArrayList<>();
+    Roles userRoles = this.getRole();
+    if (userRoles != null) {
+      SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRoles.toString());
+      authorities.add(authority);
+    }
+    return authorities;
+  }
 
-    User user = (User) o;
-
-    if (confirmedEmail != user.confirmedEmail) return false;
-    if (id != null ? !id.equals(user.id) : user.id != null) return false;
-    if (name != null ? !name.equals(user.name) : user.name != null) return false;
-    if (password != null ? !password.equals(user.password) : user.password != null) return false;
-    if (email != null ? !email.equals(user.email) : user.email != null) return false;
-    if (joinDate != null ? !joinDate.equals(user.joinDate) : user.joinDate != null) return false;
-    if (token != null ? !token.equals(user.token) : user.token != null) return false;
-
+  @Transient
+  @Override
+  @JsonIgnore
+  public boolean isAccountNonExpired() {
     return true;
   }
 
+  @Transient
   @Override
-  public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (password != null ? password.hashCode() : 0);
-    result = 31 * result + (email != null ? email.hashCode() : 0);
-    result = 31 * result + (confirmedEmail ? 1 : 0);
-    result = 31 * result + (joinDate != null ? joinDate.hashCode() : 0);
-    result = 31 * result + (token != null ? token.hashCode() : 0);
-    return result;
+  @JsonIgnore
+  public boolean isAccountNonLocked() {
+    return true;
   }
 
+  @Transient
   @Override
-  public String toString() {
-    return "Name: " + name + ", email: " + email + "";
+  @JsonIgnore
+  public boolean isCredentialsNonExpired() {
+    return true;
   }
+
+  @Transient
+  @Override
+  @JsonIgnore
+  public boolean isEnabled() {
+    return true;
+  }
+
+  @Transient
+  @Override
+  @JsonIgnore
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null)
+      return false;
+
+    if (o instanceof User) {
+      final User other = (User) o;
+      return Objects.equal(getId(), other.getId())
+          && Objects.equal(getUsername(), other.getUsername())
+          && Objects.equal(getPassword(), other.getPassword())
+          && Objects.equal(getRole().toString(), other.getRole().toString())
+          && Objects.equal(isEnabled(), other.isEnabled());
+    }
+    return false;
+  }
+
+  public Roles getRole() {
+    return role;
+  }
+
+  public void setRole(Roles role) {
+    this.role = role;
+  }
+
+  @Transient
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(getId(), getUsername(), getPassword(), getRole().toString(), isEnabled());
+  }
+
+
 }

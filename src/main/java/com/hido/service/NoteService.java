@@ -1,7 +1,7 @@
 package com.hido.service;
 
-import com.hido.dao.NoteServiceDao;
 import com.hido.model.Note;
+import com.hido.repo.NoteServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

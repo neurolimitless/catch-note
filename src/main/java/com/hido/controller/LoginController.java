@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +20,6 @@ public class LoginController {
 
   @Autowired
   private UserService userService;
-
-  @RequestMapping(method = RequestMethod.GET)
-  public String loginPage() {
-    return "login";
-  }
 
   @RequestMapping(value = "/check")
   public Object handleSuccessLogin() {
