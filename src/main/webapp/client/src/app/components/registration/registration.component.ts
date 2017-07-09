@@ -9,6 +9,11 @@ import {User} from "../../models/user.model";
 export class RegistrationComponent implements OnInit {
 
   public user: User;
+  public isVisible: boolean;
+
+  public toggleRegisterForm(): void {
+    this.isVisible = !this.isVisible;
+  }
 
   constructor() {
   }

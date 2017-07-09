@@ -5,18 +5,27 @@ import {HttpModule} from "@angular/http";
 
 import {AppComponent} from "./app.component";
 import {RegistrationComponent} from "./components/registration/registration.component";
+import {LoginComponent} from "./components/login/login.component";
+import {RouterModule} from "@angular/router";
+import {RoutingModule} from "./components/routing/routing.module";
+import {AuthService} from "./service/auth.service";
+import {HomeComponent} from "./components/home/home.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot([]),
+    RoutingModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

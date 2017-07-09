@@ -10,4 +10,6 @@ public interface NoteServiceDao extends CrudRepository<Note, Long> {
 
   Note findById(int id);
 
+  Note save(Note note);
+
 }

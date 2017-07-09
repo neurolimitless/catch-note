@@ -18,4 +18,8 @@ public class NoteService {
   public Note getNoteById(int id) {
     return dao.findById(id);
   }
+
+  public Note save(Note note) {
+    return dao.save(note);
+  }
 }

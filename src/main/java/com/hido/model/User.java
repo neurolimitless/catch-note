@@ -1,6 +1,9 @@
 package com.hido.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hido.serializers.CustomDateSerializer;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -78,6 +81,8 @@ public class User implements Serializable {
   }
 
   @Column(name = "join_date", nullable = false)
+  @JsonSerialize(using = CustomDateSerializer.class)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   public Date getJoinDate() {
     return joinDate;
   }
@@ -123,5 +128,10 @@ public class User implements Serializable {
     result = 31 * result + (joinDate != null ? joinDate.hashCode() : 0);
     result = 31 * result + (token != null ? token.hashCode() : 0);
     return result;
+  }
+
+  @Override
+  public String toString() {
+    return "Name: " + name + ", email: " + email + "";
   }
 }

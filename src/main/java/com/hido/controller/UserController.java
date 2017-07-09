@@ -30,7 +30,10 @@ public class UserController {
   @RequestMapping("/users/register")
   @ResponseBody
   public User register(@RequestBody User user) {
+
     return service.save(user);
+
   }
+
 
 }

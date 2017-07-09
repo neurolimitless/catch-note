@@ -1,5 +1,8 @@
 package com.hido.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hido.serializers.CustomDateSerializer;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -8,31 +11,21 @@ import java.sql.Date;
 @Table(name = "NOTES")
 public class Note implements Serializable {
 
-  @Id
-  @GeneratedValue
   private int id;
-  @Column(name = "name")
+
   private String name;
-  @Column(name = "data")
+
   private String data;
-  @Column(name = "adding_date")
+
   private Date addingDate;
 
-  @ManyToOne
-  @JoinColumn(name = "author")
   private User author;
 
   public Note() {
   }
 
-  public User getAuthor() {
-    return author;
-  }
-
-  public void setAuthor(User author) {
-    this.author = author;
-  }
-
+  @Id
+  @GeneratedValue
   public int getId() {
     return id;
   }
@@ -41,6 +34,7 @@ public class Note implements Serializable {
     this.id = id;
   }
 
+  @Column(name = "name")
   public String getName() {
     return name;
   }
@@ -49,6 +43,17 @@ public class Note implements Serializable {
     this.name = name;
   }
 
+  @ManyToOne
+  @JoinColumn(name = "author")
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
+  }
+
+  @Column(name = "data")
   public String getData() {
     return data;
   }
@@ -57,6 +62,8 @@ public class Note implements Serializable {
     this.data = data;
   }
 
+  @Column(name = "adding_date")
+  @JsonSerialize(using = CustomDateSerializer.class)
   public Date getAddingDate() {
     return addingDate;
   }

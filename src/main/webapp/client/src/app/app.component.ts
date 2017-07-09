@@ -7,16 +7,4 @@ import {Component} from "@angular/core";
 })
 export class AppComponent {
 
-  public isRegistrationToggled: boolean;
-  public username: string;
-  public password: string;
-
-  public login(): any {
-    alert(this.username + ' : ' + this.password);
-  }
-
-  public showRegisterForm(): void {
-    this.isRegistrationToggled = true;
-
-  }
 }

@@ -4,12 +4,11 @@ import com.hido.model.Note;
 import com.hido.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@ResponseBody
 @RequestMapping("/notes")
 public class NoteController {
 
@@ -24,6 +23,11 @@ public class NoteController {
   @RequestMapping("/all")
   public Iterable<Note> findAll() {
     return noteService.getAll();
+  }
+
+  @RequestMapping("/save")
+  public Note save(@RequestBody Note note) {
+    return noteService.save(note);
   }
 
 }
