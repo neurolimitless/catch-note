@@ -94,7 +94,7 @@ public class User implements Serializable, UserDetails {
     this.confirmedEmail = confirmedEmail;
   }
 
-  @Column(name = "join_date", nullable = false)
+  @Column(name = "join_date")
   @JsonSerialize(using = CustomDateSerializer.class)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   public Date getJoinDate() {

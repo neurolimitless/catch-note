@@ -10,15 +10,15 @@ INSERT INTO NOTES VALUES (DEFAULT ,'Sample note','This is the simple note',NOW()
 DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS (
   `id`              int(11) NOT NULL AUTO_INCREMENT,
-  `name`            varchar(32) DEFAULT NULL,
+  `name`            varchar(32)      DEFAULT NULL,
   `password`        varchar(256) NOT NULL,
   `email`           varchar(128) NOT NULL,
   `confirmed_email` BOOL NOT NULL DEFAULT false,
-  `join_date`       timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `join_date`       TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
   `role`            INT(11),
   PRIMARY KEY (`id`)
 );
-INSERT INTO USERS VALUES (DEFAULT,'admin','root','samplemail@yahoo.com','false',now(),null);
+INSERT INTO USERS VALUES (DEFAULT, 'admin', '$2a$10$RQxTbpMdFJAKU.p4AuG4xOaLPIeI94xUKgpQp9S2FRmI7JpDiULcS', 'samplemail@yahoo.com', 'false', now(), NULL);
 
 # 03.06.2017
 
