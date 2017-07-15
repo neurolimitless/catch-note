@@ -1,22 +1,23 @@
 DROP TABLE IF EXISTS `notes`;
 CREATE TABLE `notes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text,
-  `data` mediumtext,
-  `adding_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id`          INT(11)   NOT NULL AUTO_INCREMENT,
+  `name`        TEXT,
+  `data`        MEDIUMTEXT,
+  `adding_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
-INSERT INTO NOTES VALUES (DEFAULT ,'Sample note','This is the simple note',NOW());
+INSERT INTO NOTES VALUES (DEFAULT, 'Sample note', 'This is the simple note', NOW());
 DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS (
-  `id`              int(11) NOT NULL AUTO_INCREMENT,
-  `name`            varchar(32)      DEFAULT NULL,
-  `password`        varchar(256) NOT NULL,
-  `email`           varchar(128) NOT NULL,
-  `confirmed_email` BOOL NOT NULL DEFAULT false,
-  `join_date`       TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
+  `id`              INT(11)      NOT NULL           AUTO_INCREMENT,
+  `name`            VARCHAR(32)                     DEFAULT NULL,
+  `password`        VARCHAR(256) NOT NULL,
+  `email`           VARCHAR(128) NOT NULL,
+  `confirmed_email` BOOL         NOT NULL           DEFAULT FALSE,
+  `join_date`       TIMESTAMP                       DEFAULT CURRENT_TIMESTAMP,
   `role`            INT(11),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE (`name`)
 );
 INSERT INTO USERS VALUES (DEFAULT, 'admin', '$2a$10$RQxTbpMdFJAKU.p4AuG4xOaLPIeI94xUKgpQp9S2FRmI7JpDiULcS', 'samplemail@yahoo.com', 'false', now(), NULL);
 
@@ -43,10 +44,10 @@ INSERT INTO ROLES (name) VALUES ('USER');
 
 ALTER TABLE PUBLIC.USERS
   ADD CONSTRAINT USERS_ROLES_ID_fk
-FOREIGN KEY (ID) REFERENCES INFORMATION_SCHEMA.ROLES (ID);
-
-ALTER TABLE PUBLIC.USERS
-  ADD CONSTRAINT USERS_ROLES_ID_fk
 FOREIGN KEY (ROLE) REFERENCES PUBLIC.ROLES (ID)
   ON DELETE SET NULL
   ON UPDATE SET NULL;
+
+UPDATE PUBLIC.USERS
+SET ROLE = 1
+WHERE ID = 1;

@@ -1,29 +1,38 @@
-import {Component, OnInit} from "@angular/core";
-import {User} from "../../models/user.model";
-import {Http} from "@angular/http";
+import {Component, Input, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {UserService} from "../../service/user/user.service";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
 
-  public user: User;
-  public isVisible: boolean;
+  @Input()
+  public model: any = {};
+  private loading: boolean;
 
-  public toggleRegisterForm(): void {
-    this.isVisible = !this.isVisible;
-  }
-
-  constructor(private http: Http) {
+  constructor(private router: Router, private userService: UserService, private snackbar: MdSnackBar) {
   }
 
   ngOnInit() {
   }
 
-  public register() {
-
+  register() {
+    this.loading = true;
+    this.userService.create(this.model).subscribe(
+      data => {
+        this.snackbar.open('Successfully registered!', 'Ok', {duration: 3000});
+        this.router.navigate(['/login']);
+      },
+      error => {
+        let err = error.json();
+        this.snackbar.open(err.message, '', {duration: 3000});
+        this.model = {};
+        this.loading = false;
+      });
+    this.loading = false;
   }
-
 }

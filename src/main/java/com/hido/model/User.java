@@ -180,5 +180,13 @@ public class User implements Serializable, UserDetails {
     return Objects.hashCode(getId(), getUsername(), getPassword(), getRole().toString(), isEnabled());
   }
 
-
+  @Override
+  public String toString() {
+    return "User{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", password='" + password + '\'' +
+        ", email='" + email + '\'' +
+        '}';
+  }
 }

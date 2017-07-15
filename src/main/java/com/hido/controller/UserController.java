@@ -4,25 +4,26 @@ import com.hido.dto.UserDTO;
 import com.hido.model.User;
 import com.hido.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/users")
 public class UserController {
 
   @Autowired
   UserService service;
 
-  @RequestMapping("/users/{id}")
+  @RequestMapping("/{id}")
   @ResponseBody
   public User getAll(@PathVariable(name = "id") Long id) {
     User user = service.findUser(id).get();
     return user;
   }
 
-  @RequestMapping("/users/register")
+  @RequestMapping(value = "/registration", method = RequestMethod.POST)
   @ResponseBody
-  public User register(@RequestBody UserDTO user) {
+  public User register(@RequestBody UserDTO user) throws DataIntegrityViolationException {
     return service.createUser(user);
   }
 

@@ -8,26 +8,34 @@ import {RegistrationComponent} from "./components/registration/registration.comp
 import {LoginComponent} from "./components/login/login.component";
 import {RouterModule} from "@angular/router";
 import {RoutingModule} from "./components/routing/routing.module";
-import {AuthService} from "./service/auth.service";
+import {AuthService} from "./service/auth/auth.service";
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./service/auth-guard";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {UserService} from "./service/user/user.service";
+import {MdSnackBarModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot([]),
-    RoutingModule
+    RoutingModule,
+    MdSnackBarModule,
+    BrowserAnimationsModule
   ],
-  providers: [AuthService, AuthGuard,
+  exports: [
+    MdSnackBarModule
+  ],
+  providers: [AuthService, UserService, AuthGuard,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy

@@ -6,6 +6,7 @@ import com.hido.model.User;
 import com.hido.repo.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,19 +41,25 @@ public class UserService implements IUserService {
   @Override
   public Optional<User> findUser(Long id) {
     return Optional.of(userRepository.findOne(id));
-
   }
 
   @Override
-  public User createUser(UserDTO userDTO) {
+  public User createUser(UserDTO userDTO) throws DataIntegrityViolationException {
+    try {
+      UserDetails userDetails = loadUserByUsername(userDTO.getName().get());
+      if (userDetails != null) {
+        throw new DataIntegrityViolationException("User with such username already exists.");
+      }
+    } catch (UsernameNotFoundException e) {
+    }
     User user = toUserRole(userDTO);
-    return userRepository.save(user);
+    User createdUser = userRepository.save(user);
+    LOG.info("New user registered: " + createdUser);
+    return createdUser;
   }
 
   private User toUserRole(UserDTO userDTO) {
     User user = userDTO.toUser();
-//    Role role = new Role();
-//    role.setName("ROLE_USER");
     user.setRole(Roles.USER);
     return user;
   }

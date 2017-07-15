@@ -41,7 +41,8 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
   }
 
   private UserDTO toUser(HttpServletRequest request) throws IOException {
-    return new ObjectMapper().readValue(request.getInputStream(), UserDTO.class);
+    UserDTO userDTO = new ObjectMapper().readValue(request.getInputStream(), UserDTO.class);
+    return userDTO;
   }
 
   @Override

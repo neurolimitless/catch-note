@@ -18,7 +18,7 @@ public final class UserDTO {
   private static final String ROLE_USER = "ROLE_USER";
 
   private final String email;
-  @Size(min = 8, max = 100)
+  @Size(min = 4, max = 100)
   private final String password;
   private final String name;
 
@@ -52,7 +52,7 @@ public final class UserDTO {
   }
 
   public UsernamePasswordAuthenticationToken toAuthenticationToken() {
-    return new UsernamePasswordAuthenticationToken(email, password, getAuthorities());
+    return new UsernamePasswordAuthenticationToken(name, password, getAuthorities());
   }
 
   public Collection<? extends GrantedAuthority> getAuthorities() {

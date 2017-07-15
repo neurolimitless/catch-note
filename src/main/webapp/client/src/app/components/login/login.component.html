@@ -1,11 +1,10 @@
 <div class="login-page">
   <div class="form">
-    <app-registration></app-registration>
-    <form method="post" [style.display]="isVisible?'none':'block'" class="login-form">
+    <form method="post" action="/login" class="login-form">
       <input [(ngModel)]="username" name="username" type="text" placeholder="username"/>
       <input [(ngModel)]="password" name="password" type="password" placeholder="password"/>
       <button type="submit" (click)="login()">login</button>
-      <p class="message">Not registered? <a href="#" (click)="toggleRegisterForm()">Create an account</a></p>
+      <p class="message">Not registered? <a href="#" [routerLink]="['/registration']">Create an account</a></p>
     </form>
   </div>
 </div>

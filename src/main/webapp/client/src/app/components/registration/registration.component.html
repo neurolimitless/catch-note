@@ -1,7 +1,11 @@
-<form onsubmit="return checkForm(this);" [style.display]="isVisible?'block':'none'" class="register-form">
-  <input type="text" placeholder="name"/>
-  <input type="password" placeholder="password"/>
-  <input type="text" placeholder="email address"/>
-  <button>create</button>
-  <p class="message">Already registered? <a href="#" (click)="toggleRegisterForm()">Sign In</a></p>
-</form>
+<div class="registration-page">
+  <div class="form">
+    <form class="register-form">
+      <input [(ngModel)]="model.name" name="name" type="text" placeholder="name"/>
+      <input [(ngModel)]="model.password" name="password" type="password" placeholder="password"/>
+      <input [(ngModel)]="model.email" name="email" type="text" placeholder="email address"/>
+      <button type="submit" (click)="register()">Register</button>
+      <p class="message">Already registered? <a href="#" [routerLink]="['/login']">Sign In</a></p>
+    </form>
+  </div>
+</div>

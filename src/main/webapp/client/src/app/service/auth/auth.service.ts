@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 @Injectable()
 export class AuthService {
 
-  private authUrl = 'http://localhost:8080/login';
+  private authUrl = '/login';
   private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
 
   constructor(private http: Http, private router: Router) {

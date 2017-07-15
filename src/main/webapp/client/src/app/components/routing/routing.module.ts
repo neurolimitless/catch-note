@@ -4,11 +4,13 @@ import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "../login/login.component";
 import {HomeComponent} from "../home/home.component";
 import {AuthGuard} from "../../service/auth-guard";
+import {RegistrationComponent} from "../registration/registration.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'registration', component: RegistrationComponent}
 ];
 
 export const APP_ROUTER_PROVIDERS = [

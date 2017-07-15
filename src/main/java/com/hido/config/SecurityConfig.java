@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().headers().cacheControl();
 
     http.authorizeRequests()
-        .antMatchers("/resources/**", "/users/register", "/login").permitAll()
+        .antMatchers("/resources/**", "/users/registration", "/login").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin()
@@ -81,13 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected UserDetailsService userDetailsService() {
     return userService;
-  }
-
-  @Autowired
-  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    auth
-        .inMemoryAuthentication()
-        .withUser("admin").password("root").roles("ADMIN");
   }
 
   @Bean
